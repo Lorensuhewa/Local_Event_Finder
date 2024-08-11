@@ -1,12 +1,19 @@
 import { useState } from 'react';
 import { Link,useNavigate } from 'react-router-dom';
+import {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+} from '../redux/user/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 export default function SignIn() {
   const [formData, setFormData] = useState({});
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const { loading, error } = useSelector((state) => state.user);
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
@@ -14,8 +21,7 @@ export default function SignIn() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      setLoading(true);
-      setError(false);
+      dispatch(signInStart());
       const res = await fetch('/api/auth/signin', {
         method: 'POST',
         headers: {
@@ -24,15 +30,14 @@ export default function SignIn() {
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      setLoading(false);
       if (data.success === false) {
-        setError(true);
+        dispatch(signInFailure(data));
         return;
       }
+      dispatch(signInSuccess(data));
       navigate('/');
     } catch (error) {
-      setLoading(false);
-      setError(true);
+      dispatch(signInFailure(error));
     }
   };
 
@@ -63,8 +68,8 @@ export default function SignIn() {
               onChange={handleChange}
             />
             <button  disabled={loading} className='bg-[#f87171]  text-white p-3 rounded-lg uppercase hover:opacity-80 disabled:opacity-90'>
-            {loading ? 'Loading...' : 'Sign In'}
-              Log in
+            {loading ? 'Loading...' : 'Log In'}
+              
             </button>
           </form>
           <div className='flex gap-2 mt-5 justify-center'>
@@ -73,7 +78,9 @@ export default function SignIn() {
               <span className='text-blue-500'>Sign Up</span>
             </Link>
           </div>
-          <p className='text-red-700 mt-5'>{error && 'Something went wrong!'}</p>
+          <p className='text-red-700 mt-5'>
+          {error ? error.message || 'Something went wrong!' : ''}
+          </p>
         </div>
       </div>
 

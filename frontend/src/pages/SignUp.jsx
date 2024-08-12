@@ -43,7 +43,9 @@ export default function SignUp() {
       <div className='flex-1 flex flex-col items-center justify-center p-6'>
         {/* Logo in the top left corner */}
         <div className='absolute top-6 left-6'>
-          <img src="/logo2.png" alt="Logo" className='h-12' />
+        <Link to='/'>
+            <img src="/logo2.png" alt="Logo" className='h-16 mr-4' />
+          </Link>
         </div>
         {/* Sign-Up Form */}
         <div className='max-w-md w-full'>
@@ -81,8 +83,9 @@ export default function SignUp() {
               <span className='text-blue-500'>Log in</span>
             </Link>
           </div>
-          <p className='text-red-700 mt-5'>{error && 'Something went wrong!'}</p>
+         
         </div>
+        <p className='text-red-700 mt-5'>{error && 'Something went wrong!'}</p>
       </div>
 
       {/* Right side: Sign-Up Image */}

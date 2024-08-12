@@ -36,8 +36,13 @@ export default function OAuth() {
   return (
 
     <button 
-    type='button' onClick={handleGoogleClick} 
-    className='text-black rounded-lg p-3 hover:opacity-95' >Continue with Google</button>
+      type='button' 
+      onClick={handleGoogleClick} 
+      className='flex items-center justify-center text-black border border-black rounded-lg p-3 hover:opacity-95'
+    >
+      <img src={'google.png'} alt="Google Icon" className='w-6 h-6 mr-3' />
+      <span>Continue with Google</span>
+    </button>
   )
 }
 

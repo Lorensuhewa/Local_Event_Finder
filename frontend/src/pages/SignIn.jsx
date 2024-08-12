@@ -48,7 +48,9 @@ export default function SignIn() {
       <div className='flex-1 flex flex-col items-center justify-center p-6'>
         {/* Logo in the top left corner */}
         <div className='absolute top-6 left-6'>
-          <img src="/logo2.png" alt="Logo" className='h-12' />
+        <Link to='/'>
+            <img src="/logo2.png" alt="Logo" className='h-16 mr-4' />
+          </Link>
         </div>
         {/* Login Form */}
         <div className='max-w-md w-full'>
@@ -80,11 +82,13 @@ export default function SignIn() {
               <span className='text-blue-500'>Sign Up</span>
             </Link>
           </div>
-          <p className='text-red-700 mt-5'>
-          {error ? error.message || 'Something went wrong!' : ''}
-          </p>
+          
         </div>
+        <p className='text-red-700 mt-5'>
+        {error ? error.message || 'Something went wrong!' : ''}
+          </p>
       </div>
+
 
       {/* Right side: Login Image */}
       <div className='hidden lg:flex flex-1'>

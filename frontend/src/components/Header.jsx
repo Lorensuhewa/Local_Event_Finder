@@ -11,25 +11,11 @@ export default function Header() {
           </Link>
           
         </div>
-        <div className="relative flex items-center">
-          <input
-            type="text"
-            placeholder="Search events"
-            className="px-10 py-2 border rounded-full focus:outline-none"
-          />
-          <img 
-            src="/search.png" 
-            alt="Search Icon" 
-            className="absolute left-3 w-5 h-5"
-          />
-        </div>
         
 
         {/* Right side: Navigation menu */}
         <ul className='flex gap-4'>
-        <Link to='/' className='hover:text-blue-500'>
-            <li>Create Event</li>
-          </Link>
+        
           <Link to='/' className='hover:text-blue-500'>
             <li>Home</li>
           </Link>

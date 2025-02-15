@@ -14,15 +14,15 @@ export default function Header() {
         
 
         {/* Right side: Navigation menu */}
-        <ul className='flex gap-4'>
+        <ul className='flex gap-10'>
         
-          <Link to='/' className='hover:text-blue-500'>
+          <Link to='/' className='hover:text-red-500'>
             <li>Home</li>
           </Link>
-          <Link to='/sign-in' className='hover:text-blue-500'>
+          <Link to='/sign-in' className='hover:text-red-500'>
             <li>Sign In</li>
           </Link>
-          <Link to='/sign-up' className='hover:text-blue-500'>
+          <Link to='/sign-up' className='hover:text-red-500'>
             <li>Sign Up</li>
           </Link>
         </ul>

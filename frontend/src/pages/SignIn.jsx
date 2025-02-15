@@ -84,9 +84,9 @@ export default function SignIn() {
           </div>
           
         </div>
-        <p className='text-red-700 mt-5'>
-        {error ? error.message || 'Something went wrong!' : ''}
-          </p>
+        {error && error.message && (
+  <p className='text-red-700 mt-5'>{error.message}</p>
+)}
       </div>
 
 

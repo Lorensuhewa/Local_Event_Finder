@@ -6,7 +6,7 @@ import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
 import HomePage from './pages/UserHomePage';
 import Profile from './pages/Profile';
-import Favorite from './pages/favorite';
+import Map from './pages/Map';
 
 
 
@@ -20,7 +20,7 @@ export default function App() {
         <Route path="/sign-in" element={<SignIn/>}/>
         <Route path='/userPage' element={<HomePage/>}/>
         <Route path='/profile' element={<Profile/>}/>
-        <Route path='/favorites' element={<Favorite/>}/>
+        <Route path='/map' element={<Map/>}/>
 
         
 

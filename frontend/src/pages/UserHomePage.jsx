@@ -8,7 +8,7 @@ export default function Home() {
     <div>
       <LogHeader />
       <div className="flex">
-        <div>
+        <div className="flex-2">
           <div className="relative">
             <img
               src={"banner1.jpeg"}
@@ -108,7 +108,9 @@ export default function Home() {
             </h2>
           </div>
         </div>
+        <div className="flex-1 h-screen">
           <CalendarComponent />
+        </div>
       </div>
       <Footer />
     </div>

@@ -43,8 +43,8 @@ const GoogleOAuth = ({ onAuthSuccess, onAuthFailure }) => {
 
   return (
     <div>
-      <button onClick={signIn}>Sign In with Google</button>
-      <button onClick={signOut}>Sign Out</button>
+      <button className="bg-blue-500 m-2 p-2 border" onClick={signIn}>Sign In with Google</button>
+      <button className="bg-blue-500 m-2 p-2 border" onClick={signOut}>Sign Out</button>
     </div>
   );
 };

@@ -1,10 +1,20 @@
-// eslint-disable-next-line no-unused-vars
-import React from 'react'
+import Footer from "../components/footer";
+import UserHeader from "../components/LogUserHeader";
 
-export default function CreateEvent() {
+
+const Events = () => {
   return (
     <div>
-      CreateEvent
+      <div>
+        <UserHeader/>
+      </div>
+      <div>
+      </div>
+      <Footer/>
     </div>
-  )
-}
+  );
+};
+
+export default Events;
+
+

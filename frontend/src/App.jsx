@@ -7,6 +7,7 @@ import SignIn from './pages/SignIn';
 import HomePage from './pages/UserHomePage';
 import Profile from './pages/Profile';
 import Map from './pages/Map';
+import Calender from './pages/Calender';
 
 
 
@@ -21,6 +22,7 @@ export default function App() {
         <Route path='/userPage' element={<HomePage/>}/>
         <Route path='/profile' element={<Profile/>}/>
         <Route path='/map' element={<Map/>}/>
+        <Route path='/calender' element={<Calender/>}/>
 
         
 

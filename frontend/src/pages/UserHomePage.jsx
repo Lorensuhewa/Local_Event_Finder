@@ -1,14 +1,16 @@
 import PropTypes from "prop-types";
 import Footer from "../components/footer";
-import LogHeader from "../components/LogUserHeader";
-import CalendarComponent from "../components/CalenderComponent"; // New Calendar Component
+import UserHeader from "../components/LogUserHeader";
+import CalendarComponent from "../components/CalenderComponent";
+import { Link } from "react-router-dom";
 
-export default function Home() {
+export default function HomePage() {
   return (
     <div>
-      <LogHeader />
+      <UserHeader />
       <div className="flex">
-        <div className="flex-2">
+        <div className="flex-1">
+          {/* Banner Section */}
           <div className="relative">
             <img
               src={"banner1.jpeg"}
@@ -38,78 +40,79 @@ export default function Home() {
               <CategoryItem title="Arts & Culture" imageSrc="art.webp" />
             </div>
           </div>
-
-          {/* Create Event Section */}
-          <div
-            className="relative my-10 py-10 px-6 bg-cover bg-center text-white rounded-lg flex items-center justify-between"
-            style={{
-              backgroundImage: `url('back1.png')`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-              height: "70vh",
-            }}
-          >
-            <div className="max-w-lg">
-              <h2 className="text-4xl font-bold mb-4">
-                Create and Find your own event here
-              </h2>
-              <p className="text-lg mb-6">
-                Let’s make every moment #Epic together!
-              </p>
-              <button className="bg-white text-black font-medium py-2 px-4 rounded shadow hover:bg-gray-100">
-                Create an event
-              </button>
-            </div>
-          </div>
-
-          {/* Mobile View Section */}
-          <div className="my-10 px-4 flex flex-col md:flex-row items-center justify-center gap-12">
-            <div className="flex-1 flex gap-8 justify-center">
-              <img
-                src="mob1.jpeg"
-                alt="Mobile View 1"
-                className="rounded-lg shadow-md w-64 md:w-80"
-              />
-              <img
-                src="mob2.jpeg"
-                alt="Mobile View 2"
-                className="rounded-lg shadow-md w-64 md:w-80"
-              />
-            </div>
-            <div className="flex-1 text-center md:text-right">
-              <h2 className="text-5xl font-semibold mb-4">
-                Find Events On the Go
-              </h2>
-              <p className="text-lg mb-6">
-                Get the Eventfy app and stay in the loop with the hottest events
-                around you!
-              </p>
-              <div className="flex items-center justify-center md:justify-end gap-4">
-                <a
-                  href="https://play.google.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <img
-                    src="playstore.png"
-                    alt="Google Play Store"
-                    className="w-80"
-                  />
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* Add the Calendar Component Here */}
-          <div className="my-10 px-4 flex justify-center">
-            <h2 className="text-3xl font-semibold text-center mb-8">
-              Event Calendar
-            </h2>
-          </div>
         </div>
-        <div className="flex-1 h-screen">
+        <div className=" flex flex-col justify-evenly px-4 pt-5 h-max bg-blue-100">
+          <h2 className="text-3xl font-semibold text-center mb-8">
+            Event Calendar
+          </h2>
           <CalendarComponent />
+
+          <Link
+            to="/calender"
+            className="text-2xl font-semibold text-center py-10 text-blue-500 "
+          >
+            Click to see the events and their details more...
+          </Link>
+        </div>
+      </div>
+
+      {/* Create Event Section */}
+      <div
+        className="flex pl-6 bg-center rounded-lg items-center"
+        style={{
+          backgroundImage: `url('back1.png')`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          height: "70vh",
+        }}
+      >
+        <div>
+          <h2 className="text-7xl font-bold py-5 text-red-500">
+            Create and Find your own event here
+          </h2>
+          <p className="text-lg mb-6 font-semibold">
+            Let’s make every moment #Epic together!
+          </p>
+          <button className="bg-white text-black font-medium py-2 px-4 rounded shadow hover:bg-gray-100">
+            Create an event
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile View Section */}
+      <div className="my-10 px-5 flex  md:flex-row items-center justify-between ">
+        <div className="flex-1 flex gap-10 justify-center">
+          <img
+            src="mob1.jpeg"
+            alt="Mobile View 1"
+            className="rounded-lg shadow-md w-64 md:w-80"
+          />
+          <img
+            src="mob2.jpeg"
+            alt="Mobile View 2"
+            className="rounded-lg shadow-md w-64 md:w-80"
+          />
+        </div>
+        <div className="flex flex-col items-center mr-10 text-center md:text-right">
+          <h2 className="text-5xl font-semibold mb-4 ">Find Events On the Go</h2>
+          <p className="text-lg mb-6">
+            Get the Eventfy app and stay in the loop with the hottest events
+            around you!
+          </p>
+          <div className="flex items-center justify-center md:justify-end gap-4">
+            <a
+              href="https://play.google.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src="playstore.png"
+                alt="Google Play Store"
+                className="w-80"
+              />
+            </a>
+          </div>
         </div>
       </div>
       <Footer />

@@ -5,6 +5,7 @@ import {
   Marker,
   InfoWindow,
 } from "@react-google-maps/api";
+import UserHeader from "../components/LogUserHeader";
 
 const Map = () => {
   const [events, setEvents] = useState([]);
@@ -36,36 +37,41 @@ const Map = () => {
   };
 
   return (
-    <div className="w-screen h-screen">
-      <LoadScript googleMapsApiKey="AIzaSyCRlhLzvVKHu3I6aoB9SfYyLAC073G5vWQ">
-        <GoogleMap
-          mapContainerStyle={mapContainerStyle}
-          center={center}
-          zoom={12}
-        >
-          {events.map((event) => (
-            <Marker
-              key={event.id}
-              position={{ lat: event.lat, lng: event.lng }}
-              onClick={() => handleMarkerClick(event)}
-            />
-          ))}
+    <div>
+      <div>
+        <UserHeader/>
+      </div>
+      <div className="w-screen h-screen">
+        <LoadScript googleMapsApiKey="AIzaSyCRlhLzvVKHu3I6aoB9SfYyLAC073G5vWQ">
+          <GoogleMap
+            mapContainerStyle={mapContainerStyle}
+            center={center}
+            zoom={12}
+          >
+            {events.map((event) => (
+              <Marker
+                key={event.id}
+                position={{ lat: event.lat, lng: event.lng }}
+                onClick={() => handleMarkerClick(event)}
+              />
+            ))}
 
-          {selectedEvent && (
-            <InfoWindow
-              position={{
-                lat: selectedEvent.lat,
-                lng: selectedEvent.lng,
-              }}
-              onCloseClick={() => setSelectedEvent(null)}
-            >
-              <div>
-                <h3>{selectedEvent.title}</h3>
-              </div>
-            </InfoWindow>
-          )}
-        </GoogleMap>
-      </LoadScript>
+            {selectedEvent && (
+              <InfoWindow
+                position={{
+                  lat: selectedEvent.lat,
+                  lng: selectedEvent.lng,
+                }}
+                onCloseClick={() => setSelectedEvent(null)}
+              >
+                <div>
+                  <h3>{selectedEvent.title}</h3>
+                </div>
+              </InfoWindow>
+            )}
+          </GoogleMap>
+        </LoadScript>
+      </div>
     </div>
   );
 };

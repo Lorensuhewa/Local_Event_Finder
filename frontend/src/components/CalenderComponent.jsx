@@ -24,7 +24,7 @@ const CalendarComponent = () => {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto bg-green-400 p-5">
+    <div className="w-full max-w-4xl mx-auto p-6 bg-gray-100 m-5 rounded-lg ">
       <FullCalendar
         plugins={[dayGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"

@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 
-export default function Header() {
+export default function UserHeader() {
   return (
-    <div className='bg-slate-200'>
+    <div className='bg-slate-300'>
       <div className="flex justify-between items-center max-w-8xl mx-auto p-3">
         {/* Left side: Logo and text */}
         <div className="flex items-center">
@@ -15,7 +15,10 @@ export default function Header() {
 
         {/* Right side: Navigation menu */}
         <ul className='flex gap-10'>
-        
+
+        <Link to='/userPage' className='hover:text-red-500'>
+            <li>Home</li>
+          </Link>
           <Link to='/profile' className='hover:text-red-500'>
             <li>Profile Settings</li>
           </Link>
@@ -24,6 +27,9 @@ export default function Header() {
           </Link>
           <Link to='/events' className='hover:text-red-500'>
             <li>All Events</li>
+          </Link>
+          <Link to='/calender' className='hover:text-red-500'>
+            <li>Event Calender</li>
           </Link>
           <Link to='/map' className='hover:text-red-500'>
             <li>Map</li>

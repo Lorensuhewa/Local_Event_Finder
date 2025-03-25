@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Card, CardContent, Typography, TextField, Button, Avatar, IconButton } from "@mui/material";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
+import UserHeader from "../components/LogUserHeader";
+import Footer from "../components/footer";
 
 const Profile = () => {
   const [user, setUser] = useState({
@@ -27,6 +29,8 @@ const Profile = () => {
   };
 
   return (
+    <div>
+      <UserHeader/>
     <div className="bg-gray-100 min-h-screen flex items-center justify-center p-6">
       <Card sx={{ width:600, padding: 4 }}>
         <CardContent>
@@ -101,6 +105,8 @@ const Profile = () => {
           </div>
         </CardContent>
       </Card>
+    </div>
+    <Footer/>
     </div>
   );
 };

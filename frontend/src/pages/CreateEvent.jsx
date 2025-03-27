@@ -5,7 +5,6 @@ import { fetchMultipleEvents } from "../api/eventbrite";
 
 const EVENT_IDS = [
   "1296332749149",
-  "1279638746939",
   "1281926108499",
   "1298847480779",
   "1255443247549",

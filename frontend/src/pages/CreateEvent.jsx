@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Footer from "../components/footer";
 import UserHeader from "../components/LogUserHeader";
 import { fetchMultipleEvents } from "../api/eventbrite";
+import { FcCalendar } from "react-icons/fc";
 
 const EVENT_IDS = [
   "1296332749149",
@@ -19,7 +20,9 @@ const EVENT_IDS = [
   "1277908591999",
   "1079079950179",
   "1248600761489",
-  "1267874419519"
+  "1267874419519",
+  "1263607045689",
+  "1129505303769"
 ]; 
 
 const Events = () => {
@@ -56,18 +59,16 @@ const Events = () => {
                   />
                 )}
                 <div className="p-6">
-                  <h2 className="text-xl font-semibold text-gray-900">
+                  <h2 className="text-xl font-semibold text-blue-600 flex items-center gap-2">
                     {event.name.text}
                   </h2>
                   <p className="text-gray-600 text-sm mt-2">
                     {event.description.text.slice(0, 100)}...
                   </p>
-                  <p className="text-gray-800 font-medium mt-3">
-                    📅 {new Date(event.start.utc).toLocaleString()}
+                  <p className="text-gray-800 font-medium mt-3 flex items-center gap-5">
+                  <FcCalendar className="size-8 " />Starting Date and Time: {new Date(event.start.utc).toLocaleString()}
                   </p>
-                  <p className="text-gray-800 font-medium">
-                    📍 {event.venue?.name || "Online"}
-                  </p>
+                  
                   <a
                     href={event.url}
                     target="_blank"

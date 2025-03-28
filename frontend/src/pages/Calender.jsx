@@ -1,4 +1,4 @@
-import CalendarComponent from "../components/CalendarComponent";
+import CalendarComponent from "../components/CalenderComponent";
 import Footer from "../components/footer";
 import UserHeader from "../components/LogUserHeader";
 

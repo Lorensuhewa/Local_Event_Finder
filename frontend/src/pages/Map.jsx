@@ -8,22 +8,21 @@ import {
 import UserHeader from "../components/LogUserHeader";
 import { fetchMultipleEvents } from "../api/eventbrite";
 
-const EVENT_IDS = [
-  "1296332749149",
-  "1281926108499",
-  "1298847480779",
-  "1255443247549",
-];
-
 const Map = () => {
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
 
   useEffect(() => {
     const getEvents = async () => {
-      const fetchedEvents = await fetchMultipleEvents(EVENT_IDS);
+      const storedEventIds = JSON.parse(localStorage.getItem("eventIds")) || [];
+      
+      if (storedEventIds.length === 0) {
+        console.warn("No event IDs found in local storage.");
+        return;
+      }
 
-      // Extract location data from Eventbrite API response
+      const fetchedEvents = await fetchMultipleEvents(storedEventIds);
+
       const mappedEvents = fetchedEvents
         .map((event) => {
           if (event.venue && event.venue.latitude && event.venue.longitude) {
@@ -32,13 +31,14 @@ const Map = () => {
               title: event.name.text,
               lat: parseFloat(event.venue.latitude),
               lng: parseFloat(event.venue.longitude),
-              url: event.url, // Event link
-              address: event.venue.address.localized_address_display, // Address
+              url: event.url, 
+              address: event.venue.address.localized_address_display, 
+              image: event.logo ? event.logo.url : null, // Get event image if available
             };
           }
           return null;
         })
-        .filter((event) => event !== null); // Remove null values (events without locations)
+        .filter((event) => event !== null); 
 
       setEvents(mappedEvents);
     };
@@ -52,7 +52,7 @@ const Map = () => {
   };
 
   const center = {
-    lat: 6.927079, // Default center (Colombo, Sri Lanka)
+    lat: 6.927079, 
     lng: 79.861244,
   };
 
@@ -79,7 +79,16 @@ const Map = () => {
                 position={{ lat: selectedEvent.lat, lng: selectedEvent.lng }}
                 onCloseClick={() => setSelectedEvent(null)}
               >
-                <div>
+                <div className="text-center">
+                  {/* Display Event Image if Available */}
+                  {selectedEvent.image && (
+                    <img 
+                      src={selectedEvent.image} 
+                      alt={selectedEvent.title} 
+                      className="w-40 h-24 object-cover rounded-lg shadow-md mx-auto mb-2"
+                    />
+                  )}
+
                   <h3 className="font-bold text-lg">{selectedEvent.title}</h3>
                   <p className="text-sm text-gray-700">{selectedEvent.address}</p>
                   <a

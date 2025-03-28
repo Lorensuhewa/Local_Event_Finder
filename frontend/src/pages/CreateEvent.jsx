@@ -32,6 +32,9 @@ const Events = () => {
     const getEvents = async () => {
       const eventList = await fetchMultipleEvents(EVENT_IDS);
       setEvents(eventList);
+
+      // Save event IDs to localStorage
+      localStorage.setItem("eventIds", JSON.stringify(EVENT_IDS));
     };
     getEvents();
   }, []);

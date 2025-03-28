@@ -57,7 +57,7 @@ export default function HomePage() {
       </div>
 
       {/* Create Event Section */}
-      <div
+      {/* <div
         className="flex pl-6 bg-center rounded-lg items-center"
         style={{
           backgroundImage: `url('back1.png')`,
@@ -78,10 +78,10 @@ export default function HomePage() {
             Create an event
           </button>
         </div>
-      </div>
+      </div> */}
 
       {/* Mobile View Section */}
-      <div className="my-10 px-5 flex  md:flex-row items-center justify-between ">
+      <div className="my-10 px-5 flex  md:flex-row items-center justify-between border-t-2 border-gray-300 pt-10">
         <div className="flex-1 flex gap-10 justify-center">
           <img
             src="mob1.jpeg"
@@ -95,7 +95,9 @@ export default function HomePage() {
           />
         </div>
         <div className="flex flex-col items-center mr-10 text-center md:text-right">
-          <h2 className="text-5xl font-semibold mb-4 ">Find Events On the Go</h2>
+          <h2 className="text-5xl font-semibold mb-4 ">
+            Find Events On the Go
+          </h2>
           <p className="text-lg mb-6">
             Get the Eventfy app and stay in the loop with the hottest events
             around you!
@@ -130,7 +132,11 @@ function CategoryItem({ title, imageSrc }) {
           className="w-full h-full object-cover rounded-full shadow-md"
         />
       </div>
-      <h3 className="text-lg font-medium">{title}</h3>
+      <h3 className="text-lg font-medium">
+        <Link to="/events" className="text-blue-600 ">
+          {title}
+        </Link>
+      </h3>
     </div>
   );
 }

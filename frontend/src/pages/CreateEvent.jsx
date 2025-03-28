@@ -2,18 +2,18 @@ import { useEffect, useState } from "react";
 import Footer from "../components/footer";
 import UserHeader from "../components/LogUserHeader";
 import { fetchMultipleEvents } from "../api/eventbrite";
-import { FcCalendar} from "react-icons/fc";
+import { FcCalendar, FcLike, FcLikePlaceholder, FcPicture } from "react-icons/fc";
 
 const EVENT_IDS = [
-  "1296332749149",
-  "1281926108499",
-  "1298847480779",
+  "1254242064779",
+  "1269330544829",
+  "94568160915",
   "1255443247549",
   "1301087330229",
-  "1223774104289",
-  "1276116391479",
-  "1225315655109",
-  "1234941506289",
+  "1297632958109",
+  "1301123438229",
+  "1257765794349",
+  "1302436525709",
   "63049080497",
   "1267793066189",
   "1115852287229",
@@ -22,17 +22,22 @@ const EVENT_IDS = [
   "1248600761489",
   "1267874419519",
   "1263607045689",
-  "1129505303769"
+  "1129505303769",
+  "1302808739009"
 ];
 
 const Events = () => {
   const [events, setEvents] = useState([]);
   const [favorites, setFavorites] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const eventsPerPage = 12;
 
   useEffect(() => {
     const getEvents = async () => {
       const eventList = await fetchMultipleEvents(EVENT_IDS);
-      setEvents(eventList);
+      const startIndex = (currentPage - 1) * eventsPerPage;
+      const paginatedEvents = eventList.slice(startIndex, startIndex + eventsPerPage);
+      setEvents(paginatedEvents);
 
       // Save event IDs to localStorage
       localStorage.setItem("eventIds", JSON.stringify(EVENT_IDS));
@@ -43,7 +48,7 @@ const Events = () => {
     setFavorites(storedFavorites);
 
     getEvents();
-  }, []);
+  }, [currentPage]); // Re-run when currentPage changes
 
   // Function to add event to calendar (local storage)
   const addToCalendar = (event) => {
@@ -83,6 +88,16 @@ const Events = () => {
     localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
   };
 
+  // Go to next page
+  const nextPage = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  // Go to previous page
+  const prevPage = () => {
+    setCurrentPage((prevPage) => (prevPage > 1 ? prevPage - 1 : 1));
+  };
+
   return (
     <div className="bg-gray-100 min-h-screen">
       <UserHeader />
@@ -117,18 +132,25 @@ const Events = () => {
                   </p>
 
                   {event.venue && (
-                    <p className="text-gray-800 mt-2 font-semibold">
-                      📍 Venue: {event.venue.name}, {event.venue.address.localized_address_display}
+                    <p className="text-gray-800 font-medium mt-3 flex items-center gap-5">
+                      <FcPicture className="size-8" /> Venue: {event.venue.name}, {event.venue.address.localized_address_display}
+                    </p>
+                  ) || (
+                    <p className="text-gray-800 font-medium mt-3 flex items-center gap-5">
+                      <FcPicture className="size-8" /> Venue: Online
                     </p>
                   )}
 
-                  <div className="flex justify-between mt-4">
+                  <div className="flex justify-between items-center mt-4">
                     <button
                       onClick={() => addToCalendar(event)}
                       className="text-white bg-green-600 py-2 px-4 rounded-lg hover:bg-green-700 transition"
                     >
                       Add to Calendar
                     </button>
+                    <p className="text-gray-800 font-bold ml-10 text-lg ">
+                      Add to Favorites
+                    </p>
 
                     <button
                       onClick={() => toggleFavorite(event)}
@@ -138,7 +160,11 @@ const Events = () => {
                           : "bg-gray-400 hover:bg-gray-500"
                       }`}
                     >
-                      {favorites.some((fav) => fav.id === event.id) ? "❤️ Liked" : "🤍 Like"}
+                      {favorites.some((fav) => fav.id === event.id) ? (
+                        <FcLike className="size-6" />
+                      ) : (
+                        <FcLikePlaceholder className="size-6" />
+                      )}
                     </button>
                   </div>
 
@@ -157,6 +183,22 @@ const Events = () => {
         ) : (
           <p className="text-center text-gray-600 text-lg">Loading events...</p>
         )}
+
+        <div className="flex justify-between items-center mt-6">
+          <button
+            onClick={prevPage}
+            disabled={currentPage === 1}
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg disabled:bg-gray-400"
+          >
+            Previous
+          </button>
+          <button
+            onClick={nextPage}
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg"
+          >
+            Next
+          </button>
+        </div>
       </div>
       <Footer />
     </div>

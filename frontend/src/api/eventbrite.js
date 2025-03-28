@@ -39,7 +39,16 @@ export const fetchEventDetails = async (eventId) => {
 
 // Fetch multiple events
 export const fetchMultipleEvents = async (eventIds) => {
-  const eventPromises = eventIds.map((id) => fetchEventDetails(id));
-  const eventData = await Promise.all(eventPromises);
-  return eventData.filter((event) => event !== null); // Filter out failed fetches
+  try {
+    const eventPromises = eventIds.map((eventId) =>
+      fetchEventDetails(eventId)
+    );
+    const events = await Promise.all(eventPromises);
+
+    // Filter out any events that failed to load
+    return events.filter((event) => event !== null);
+  } catch (error) {
+    console.error("Error fetching events:", error);
+    throw error; // Ensure the error is thrown so the calling code can handle it
+  }
 };

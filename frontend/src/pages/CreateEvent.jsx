@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Footer from "../components/footer";
 import UserHeader from "../components/LogUserHeader";
 import { fetchMultipleEvents } from "../api/eventbrite";
-import { FcCalendar } from "react-icons/fc";
+import { FcCalendar} from "react-icons/fc";
 
 const EVENT_IDS = [
   "1296332749149",
@@ -27,6 +27,7 @@ const EVENT_IDS = [
 
 const Events = () => {
   const [events, setEvents] = useState([]);
+  const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
     const getEvents = async () => {
@@ -36,6 +37,11 @@ const Events = () => {
       // Save event IDs to localStorage
       localStorage.setItem("eventIds", JSON.stringify(EVENT_IDS));
     };
+
+    // Load favorites from localStorage
+    const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    setFavorites(storedFavorites);
+
     getEvents();
   }, []);
 
@@ -44,6 +50,7 @@ const Events = () => {
     const storedEvents = JSON.parse(localStorage.getItem("calendarEvents")) || [];
 
     const newEvent = {
+      id: event.id,
       title: event.name.text,
       date: event.start.utc.split("T")[0], // Format as YYYY-MM-DD
     };
@@ -52,6 +59,28 @@ const Events = () => {
     localStorage.setItem("calendarEvents", JSON.stringify(updatedEvents));
 
     alert(`Event "${event.name.text}" added to your calendar!`);
+  };
+
+  // Function to add/remove favorite event
+  const toggleFavorite = (event) => {
+    let updatedFavorites = [...favorites];
+
+    if (favorites.some((fav) => fav.id === event.id)) {
+      // Remove from favorites
+      updatedFavorites = favorites.filter((fav) => fav.id !== event.id);
+    } else {
+      // Add to favorites
+      updatedFavorites.push({
+        id: event.id,
+        title: event.name.text,
+        date: event.start.utc.split("T")[0],
+        image: event.logo ? event.logo.url : null,
+        url: event.url,
+      });
+    }
+
+    setFavorites(updatedFavorites);
+    localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
   };
 
   return (
@@ -87,19 +116,31 @@ const Events = () => {
                     <FcCalendar className="size-8" />Starting Date and Time: {new Date(event.start.utc).toLocaleString()}
                   </p>
 
-                  {/* Display Venue Details */}
                   {event.venue && (
                     <p className="text-gray-800 mt-2 font-semibold">
                       📍 Venue: {event.venue.name}, {event.venue.address.localized_address_display}
                     </p>
                   )}
 
-                  <button
-                    onClick={() => addToCalendar(event)}
-                    className="block mt-4 text-center bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition w-full"
-                  >
-                    Add to Calendar
-                  </button>
+                  <div className="flex justify-between mt-4">
+                    <button
+                      onClick={() => addToCalendar(event)}
+                      className="text-white bg-green-600 py-2 px-4 rounded-lg hover:bg-green-700 transition"
+                    >
+                      Add to Calendar
+                    </button>
+
+                    <button
+                      onClick={() => toggleFavorite(event)}
+                      className={`text-white py-2 px-4 rounded-lg transition ${
+                        favorites.some((fav) => fav.id === event.id)
+                          ? "bg-red-600 hover:bg-red-700"
+                          : "bg-gray-400 hover:bg-gray-500"
+                      }`}
+                    >
+                      {favorites.some((fav) => fav.id === event.id) ? "❤️ Liked" : "🤍 Like"}
+                    </button>
+                  </div>
 
                   <a
                     href={event.url}

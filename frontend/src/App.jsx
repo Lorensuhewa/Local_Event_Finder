@@ -9,6 +9,7 @@ import Profile from './pages/Profile';
 import Map from './pages/Map';
 import Calender from './pages/Calender';
 import Events from './pages/CreateEvent';
+import Favorite from './pages/favorite';
 
 
 
@@ -25,6 +26,7 @@ export default function App() {
         <Route path='/map' element={<Map/>}/>
         <Route path='/calender' element={<Calender/>}/>
         <Route path='/events' element={<Events/>}/>
+        <Route path='/favorites' element={<Favorite/>}/>
 
         
 

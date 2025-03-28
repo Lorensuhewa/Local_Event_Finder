@@ -23,7 +23,7 @@ const EVENT_IDS = [
   "1267874419519",
   "1263607045689",
   "1129505303769"
-]; 
+];
 
 const Events = () => {
   const [events, setEvents] = useState([]);
@@ -35,6 +35,21 @@ const Events = () => {
     };
     getEvents();
   }, []);
+
+  // Function to add event to calendar (local storage)
+  const addToCalendar = (event) => {
+    const storedEvents = JSON.parse(localStorage.getItem("calendarEvents")) || [];
+
+    const newEvent = {
+      title: event.name.text,
+      date: event.start.utc.split("T")[0], // Format as YYYY-MM-DD
+    };
+
+    const updatedEvents = [...storedEvents, newEvent];
+    localStorage.setItem("calendarEvents", JSON.stringify(updatedEvents));
+
+    alert(`Event "${event.name.text}" added to your calendar!`);
+  };
 
   return (
     <div className="bg-gray-100 min-h-screen">
@@ -66,14 +81,28 @@ const Events = () => {
                     {event.description.text.slice(0, 100)}...
                   </p>
                   <p className="text-gray-800 font-medium mt-3 flex items-center gap-5">
-                  <FcCalendar className="size-8 " />Starting Date and Time: {new Date(event.start.utc).toLocaleString()}
+                    <FcCalendar className="size-8" />Starting Date and Time: {new Date(event.start.utc).toLocaleString()}
                   </p>
-                  
+
+                  {/* Display Venue Details */}
+                  {event.venue && (
+                    <p className="text-gray-800 mt-2 font-semibold">
+                      📍 Venue: {event.venue.name}, {event.venue.address.localized_address_display}
+                    </p>
+                  )}
+
+                  <button
+                    onClick={() => addToCalendar(event)}
+                    className="block mt-4 text-center bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition w-full"
+                  >
+                    Add to Calendar
+                  </button>
+
                   <a
                     href={event.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block mt-4 text-center bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition"
+                    className="block mt-2 text-center bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition"
                   >
                     View Event
                   </a>

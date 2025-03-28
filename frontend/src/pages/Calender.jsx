@@ -1,18 +1,17 @@
-import CalendarComponent from "../components/CalenderComponent"
-import Footer from "../components/footer"
-import UserHeader from "../components/LogUserHeader"
+import CalendarComponent from "../components/CalendarComponent";
+import Footer from "../components/footer";
+import UserHeader from "../components/LogUserHeader";
 
-
-const Calender = () => {
+const Calendar = () => {
   return (
     <div>
-        <UserHeader/>
+      <UserHeader />
       <div>
-        <CalendarComponent/>
+        <CalendarComponent />
       </div>
-      <Footer/>
+      <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default Calender
+export default Calendar;

@@ -2,6 +2,7 @@ import axios from "axios";
 
 const EVENTBRITE_API_KEY = "GOS6QEEAS4LEA6ZXAM22"; // Replace with your API key
 
+// Fetch event details including venue ID
 export const fetchEventDetails = async (eventId) => {
   try {
     const response = await axios.get(
@@ -12,13 +13,31 @@ export const fetchEventDetails = async (eventId) => {
         },
       }
     );
-    return response.data;
+
+    const eventData = response.data;
+
+    // If event has a venue ID, fetch venue details
+    if (eventData.venue_id) {
+      const venueResponse = await axios.get(
+        `https://www.eventbriteapi.com/v3/venues/${eventData.venue_id}/`,
+        {
+          headers: {
+            Authorization: `Bearer ${EVENTBRITE_API_KEY}`,
+          },
+        }
+      );
+
+      eventData.venue = venueResponse.data;
+    }
+
+    return eventData;
   } catch (error) {
     console.error(`Error fetching Eventbrite event ${eventId}:`, error);
     return null;
   }
 };
 
+// Fetch multiple events
 export const fetchMultipleEvents = async (eventIds) => {
   const eventPromises = eventIds.map((id) => fetchEventDetails(id));
   const eventData = await Promise.all(eventPromises);

@@ -40,7 +40,7 @@ export default function OAuth() {
       onClick={handleGoogleClick} 
       className='flex items-center justify-center text-black border border-black rounded-lg p-3 hover:opacity-95'
     >
-      <img src={'google.png'} alt="Google Icon" className='w-6 h-6 mr-3' />
+      <img src={'google.png'} alt="Google Icon" className='size-8 rounded-2xl mr-3' />
       <span>Continue with Google</span>
     </button>
   )

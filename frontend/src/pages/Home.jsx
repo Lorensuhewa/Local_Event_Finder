@@ -53,7 +53,7 @@ export default function Home() {
           </p>
           <Link to="/sign-in">
             <button className="bg-white text-black font-medium py-2 px-4 rounded shadow hover:bg-gray-100">
-              Create an event
+              Sign in 
             </button>     
           </Link>
         </div>

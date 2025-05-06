@@ -1,114 +1,95 @@
-import { useState } from "react";
-import { Card, CardContent, Typography, TextField, Button, Avatar, IconButton } from "@mui/material";
-import CameraAltIcon from "@mui/icons-material/CameraAlt";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import {
+  Avatar,
+  Card,
+  Divider,
+  List,
+  ListItem,
+  Typography,
+} from "@mui/material";
 import UserHeader from "../components/LogUserHeader";
 import Footer from "../components/footer";
 
 const Profile = () => {
   const [user, setUser] = useState({
-    fname: "Sanaka",
-    lname: "Lorensuhewa",
-    name: "sanaka Lorensuhewa",
-    email: "Sanakalorensuhewa@gmail.com",
-    bio: "Passionate software engineer and tech enthusiast.",
-    website: "https://johndoe.com",
-    profilePicture: "https://via.placeholder.com/150", 
+    username: "",
+    email: "",
+    bio: "",
+    profilePicture: " ",
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUser((prev) => ({ ...prev, [name]: value }));
-  };
+  const userId = localStorage.getItem("userId");
+  console.log("userId:", userId);
 
-  const handleProfilePictureChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setUser((prev) => ({ ...prev, profilePicture: imageUrl }));
-    }
-  };
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (!userId) {
+        console.error("No userId in localStorage");
+        return;
+      }
+
+      try {
+        const res = await axios.get(`http://localhost:3001/api/users/profile/${userId}`);
+        setUser(res.data);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUserData();
+  }, [userId]);
+
+  console.log("User data:", user);
 
   return (
-    <div>
-      <UserHeader/>
-    <div className="bg-gray-100 min-h-screen flex items-center justify-center p-6">
-      <Card sx={{ width:600, padding: 4 }}>
-        <CardContent>
-          <div className="flex flex-col items-center gap-4">
-            <div className="relative">
-              <Avatar
-                src={user.profilePicture}
-                alt="Profile"
-                sx={{ width: 100, height: 100, border: 2, borderColor: "gray" }}
-              />
-              <label htmlFor="profilePicture" className="absolute bottom-0 right-0 cursor-pointer">
-                <IconButton component="span">
-                  <CameraAltIcon color="primary" />
-                </IconButton>
-              </label>
-              <input
-                type="file"
-                id="profilePicture"
-                accept="image/*"
-                className="hidden"
-                onChange={handleProfilePictureChange}
-              />
-            </div>
+    <div className="flex flex-col ">
 
-            <Typography variant="h5">{user.name}</Typography>
-            <TextField
-              label="First Name"
-              name="fname"
-              value={user.name}
-              onChange={handleChange}
-              fullWidth
-              margin="normal"
-            />
-            <TextField
-              label="Last Name"
-              name="lname"
-              value={user.name}
-              onChange={handleChange}
-              fullWidth
-              margin="normal"
-            />
-            <TextField
-              label="Full Name"
-              name="name"
-              value={user.name}
-              onChange={handleChange}
-              fullWidth
-              margin="normal"
-            />
-            <TextField
-              label="Email"
-              name="email"
-              value={user.email}
-              onChange={handleChange}
-              fullWidth
-              margin="normal"
-            />
-            
-            <TextField
-              label="Bio"
-              name="bio"
-              value={user.bio}
-              onChange={handleChange}
-              fullWidth
-              multiline
-              rows={4}
-              margin="normal"
-            />
-            <Button variant="contained" fullWidth>
-              Save Changes
-            </Button>
+      <div className="flex flex-col items-center ">
+        <UserHeader />
+      </div>
+
+      <div className="py-20 bg-orange-100 flex items-center justify-center">
+
+        <Card className=" p-5 flex flex-col items-center shadow-lg rounded-full ">
+          <Typography>
+            <h1 className="text-3xl font-bold mb-4">Profile Details</h1>
+          </Typography>
+          <div className="flex flex-col items-center justify-center ">
+            <List className=" flex flex-col">
+              <div className="flex items-center justify-center mb-4">
+                <Avatar sx={{ bgcolor: "indigo", width: 100, height: 100, fontSize: "50px" }} >
+                  {user.username.charAt(0).toUpperCase()}
+                </Avatar>
+              </div>
+              <Divider />
+              <div className="flex items-center gap-5 py-5 px-5">
+                <Typography variant="h6">Your ID : </Typography>
+                <Typography variant="h6">{user._id}</Typography>
+              </div>
+              <Divider />
+              <div className="flex items-center gap-5 py-5 px-5">
+                <Typography variant="h6">Username : </Typography>
+                <Typography variant="h6">{user.username}</Typography>
+              </div>
+              <Divider />
+              <div className="flex items-center gap-5 py-5 px-5">
+                <Typography variant="h6">Email: </Typography>
+                <Typography variant="h6">{user.email}</Typography>
+              </div>
+              <Divider />  
+            </List>
           </div>
-        </CardContent>
-      </Card>
-    </div>
-    <Footer/>
+        </Card>
+
+      </div>
+      <div className="flex flex-col bg-orange-100">
+        <Footer />
+      </div>
+
     </div>
   );
 };
 
 export default Profile;
+

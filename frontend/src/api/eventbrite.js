@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const EVENTBRITE_API_KEY = "GOS6QEEAS4LEA6ZXAM22"; // Replace with your API key
+const EVENTBRITE_API_KEY = "GOS6QEEAS4LEA6ZXAM22"; // My EventBrite API key
 
 // Fetch event details including venue ID
 export const fetchEventDetails = async (eventId) => {

@@ -17,11 +17,11 @@ const Favorite = () => {
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="bg-orange-100 min-h-screen">
       <UserHeader />
       <div className="container mx-auto px-4 py-10">
         <h1 className="text-4xl font-bold text-center text-gray-800 mb-10">
-          My Favorite Events
+          Recent Favorite Events
         </h1>
 
         {favorites.length > 0 ? (

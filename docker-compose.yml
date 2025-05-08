@@ -1,16 +1,95 @@
-version: '3'
+# services:
+#   backend:
+#     build: ./backend
+#     ports:
+#       - "5001:5000"
+#     networks:
+#       - mern_network
+#     environment:
+#       MONGO_URI: mongodb://mongo:27017/mydatabase
+#     depends_on:
+#       - mongodb
+
+#   frontend:
+#     build: ./frontend
+#     ports:
+#       - "5173:5173"
+#     networks:
+#       - mern_network
+#     environment:
+#       REACT_APP_API_URL: http://backend:5000
+
+#   mongodb:
+#     image: mongo:latest
+#     ports:
+#       - "27017:27017"
+#     networks:
+#       - mern_network
+#     volumes:
+#       - mongo-data:/data/db
+#       - /app/node_modules
+    
+
+# networks:
+#   mern_network:
+#     driver: bridge
+
+# volumes:
+#   mongo-data:
+#     driver: local  # Persist MongoDB data locally
+
+
+
 services:
-  frontend:
-    build: ./frontend
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend_service
     ports:
-      - "80:80"
+      - "3001:3001"
+    networks:
+      - mern
+    env_file:
+      - ./backend/.env  # Ensure .env exists with correct variables
+    volumes:
+      - ./backend:/app  # Live code reloading (optional)
+      - /app/node_modules  # Prevents overwriting node_modules
+    depends_on:
+      - mongo
+    restart: always
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend_service
     depends_on:
       - backend
-
-  backend:
-    build: ./backend
     ports:
-      - "5000:5000"
+      - "5173:5173"
+    networks:
+      - mern
     environment:
-      - NODE_ENV=production
-      # Add more like MONGO_URL, etc.
+      - VITE_API_URL=http://localhost:3001  # Correct backend URL
+    restart: always
+
+  mongo:
+    image: mongo:6.0
+    container_name: mongo_service
+    ports:
+      - "27017:27017"
+    networks:
+      - mern
+    volumes:
+      - mongo-data:/data/db  # Persistent MongoDB storage
+    restart: always
+
+    
+networks:
+  mern:
+    driver: bridge
+
+volumes:
+  mongo-data:
+    driver: local  # Persist MongoDB data locally

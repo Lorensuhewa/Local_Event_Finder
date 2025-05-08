@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link,useNavigate } from 'react-router-dom';
 import OAuth from '../components/OAuth';
-import Header from '../components/Header';
+//import Header from '../components/Header';
 
 
 export default function SignUp() {
@@ -39,13 +39,15 @@ export default function SignUp() {
     }
   };
   return (
-    <div className='flex flex-col'>
-      <div className="z-50">
-        <Header/>
-      </div>
-      <div className='flex h-screen bg-red-200 -mt-20'>
-        {/* Left side: Sign-Up Form */}
-        <div className='flex-1 flex flex-col items-center justify-center'>
+    <div className='flex h-screen'>
+      {/* Left side: Logo and Login Form */}
+      <div className='flex-1 flex flex-col items-center justify-center p-6'>
+        {/* Logo in the top left corner */}
+        <div className='absolute top-6 left-6'>
+        <Link to='/'>
+            <img src="/logo2.png" alt="Logo" className='h-16 mr-4' />
+          </Link>
+        </div>
         
           {/* Sign-Up Form */}
           <div className='flex flex-col max-w-md w-full z-50'>
@@ -80,19 +82,17 @@ export default function SignUp() {
             <div className='flex gap-2 mt-5 justify-center'>
               <p>Have an account?</p>
               <Link to='/sign-in'>
-                <span className='text-blue-500'>Log in</span>
+                <span className='text-red-600'>Log in</span>
               </Link>
             </div>
             
           </div>
           <p className='text-red-700 mt-5'>{error && 'Something went wrong!'}</p>
-        </div>
-
-        {/* Right side: Sign-Up Image */}
-        <div className='hidden lg:flex flex-1'>
-          <img src="/signup.jpeg" alt="Sign Up" className='w-full h-full object-cover' />
-        </div>
-      </div>
-    </div>
+            </div>
+            {/* Right side: Sign-Up Image */}
+            <div className='hidden lg:flex flex-1'>
+              <img src="/signup.jpeg" alt="Sign Up" className='w-full h-full object-cover' />
+            </div>
+          </div>
   );
 }

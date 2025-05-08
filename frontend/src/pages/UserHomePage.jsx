@@ -19,14 +19,14 @@ export default function HomePage() {
             />
             <div className="absolute inset-0 bg-black opacity-50"></div>
             <div className="absolute inset-0 flex flex-col gap-10 items-center justify-center">
-            <h1 className="text-6xl font-bold bg-gradient-to-r from-blue-500 via-purple-500 to-red-700 bg-clip-text text-transparent">
+            <h1 className="text-6xl font-bold bg-white bg-clip-text text-transparent">
                 Welcome to Eventfy
               </h1>
               <h1 className="text-5xl font-bold text-white">
                 Do not <span className="text-red-400">just</span> scroll, go{" "}
                 <span className="text-red-400">live</span> it.
               </h1>
-              <h1 className="text-6xl font-bold bg-gradient-to-bl from-blue-500 via-purple-500 to-red-700 bg-clip-text text-transparent">
+              <h1 className="text-6xl font-bold bg-white bg-clip-text text-transparent">
                 Local Event Finder
               </h1>
             </div>
@@ -55,7 +55,7 @@ export default function HomePage() {
 
           <Link
             to="/calender"
-            className="text-2xl font-semibold text-center py-10 text-blue-500 "
+            className="text-2xl font-semibold text-center py-10 text-red-500 "
           >
             Click to see the events and their details more...
           </Link>
@@ -83,7 +83,7 @@ export default function HomePage() {
           <Link to="/sign-in">
             <button className="bg-white text-black font-medium py-2 px-4 rounded shadow hover:bg-gray-100">
               Find an event
-            </button>     
+            </button>
           </Link>
         </div>
       </div>
@@ -141,7 +141,7 @@ function CategoryItem({ title, imageSrc }) {
         />
       </div>
       <h3 className="text-lg font-medium">
-        <Link to="/events" className="text-blue-600 ">
+        <Link to="/events" className="text-red-500 ">
           {title}
         </Link>
       </h3>

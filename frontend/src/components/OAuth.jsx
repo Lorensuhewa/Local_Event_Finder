@@ -27,7 +27,7 @@ export default function OAuth() {
       const data = await res.json();
       console.log(data);
       dispatch(signInSuccess(data));
-      navigate('/');
+      navigate('/userPage');
     } catch (error) {
       console.log('could not login with google', error);
     }
@@ -38,9 +38,10 @@ export default function OAuth() {
     <button 
       type='button' 
       onClick={handleGoogleClick} 
-      className='flex items-center justify-center text-black border border-black rounded-lg p-3 hover:opacity-95'
+      className=' text-black p-3 border border-black rounded-lg uppercase hover:opacity-80 disabled:opacity-90 flex items-center justify-center'
+      style={{ width: '100%' }} // Ensu
     >
-      <img src={'google.png'} alt="Google Icon" className='size-8 rounded-2xl mr-3' />
+      <img src={'google.png'} alt="Google Icon" className='h-7 w-15 rounded-full mr-3' />
       <span>Continue with Google</span>
     </button>
   )

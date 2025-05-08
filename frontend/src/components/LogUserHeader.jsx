@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 export default function UserHeader() {
   return (
-    <div className="flex justify-between items-center w-full px-10 py-2 bg-gradient-to-r  from-purple-800 via-purple-500 to-blue-800  text-white">
+    <div className="flex justify-between items-center w-full px-10 py-2 bg-slate-200">
       {/* Left side: Logo and text */}
       <div className="flex items-center">
         <Link to='/'>
@@ -11,33 +11,30 @@ export default function UserHeader() {
       </div>
 
 
-      {/* Right side: Navigation menu */}
-      <ul className='flex gap-10 font-bold text-2xl text-black'>
-
-        <Link to='/userPage' className='hover:text-red-800 border-r-2 pr-4  border-orange-400 '>
+       {/* Right side: Navigation menu */}
+       <ul className='flex gap-8 font-semibold text-lg text-black'>
+        <Link to='/userPage' className='hover:text-red-500'>
           <li>Home</li>
         </Link>
-        <Link to='/profile' className='hover:text-red-800 border-r-2 pr-4 -ml-5 border-orange-400 '>
+        <Link to='/profile' className='hover:text-red-500'>
           <li>Profile Settings</li>
         </Link>
-        <Link to='/favorites' className='hover:text-red-800 border-r-2 pr-4 -ml-5 border-orange-400 '>
+        <Link to='/favorites' className='hover:text-red-500'>
           <li>Favorites</li>
         </Link>
-        <Link to='/events' className='hover:text-red-800 border-r-2 pr-4 -ml-5 border-orange-400 '>
+        <Link to='/events' className='hover:text-red-500'>
           <li>All Events</li>
         </Link>
-        <Link to='/calender' className='hover:text-red-800 border-r-2 pr-4 -ml-5 border-orange-400 '>
-          <li>Event Calender</li>
+        <Link to='/calender' className='hover:text-red-500'>
+          <li>Event Calendar</li>
         </Link>
-        <Link to='/map' className='hover:text-red-800 border-r-2 pr-4 -ml-5 border-orange-400 '>
+        <Link to='/map' className='hover:text-red-500'>
           <li>Map</li>
         </Link>
-        <Link to='/' className='hover:text-red-800 -ml-5  '>
+        <Link to='/' className='hover:text-red-500'>
           <li>Log Out</li>
         </Link>
       </ul>
-
     </div>
-
   );
 }

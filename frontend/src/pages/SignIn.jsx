@@ -7,7 +7,8 @@ import {
 } from '../redux/user/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import OAuth from '../components/OAuth';
-import Header from '../components/Header';
+//import { GoogleLogin } from 'react-google-login';
+//import Header from '../components/Header';
 
 
 export default function SignIn() {
@@ -44,13 +45,18 @@ export default function SignIn() {
     }
   };
 
+
+
   return (
-    <div className='flex flex-col'>
-      <div className="z-50">
-         <Header/>
-      </div>
-      <div className='flex h-screen bg-red-200 -mt-20 '>
-        <div className='flex-1 flex flex-col items-center justify-center '>
+    <div className='flex h-screen'>
+      {/* Left side: Logo and Login Form */}
+      <div className='flex-1 flex flex-col items-center justify-center p-6'>
+        {/* Logo in the top left corner */}
+        <div className='absolute top-6 left-6'>
+        <Link to='/'>
+            <img src="/logo2.png" alt="Logo" className='h-16 mr-4' />
+          </Link>
+        </div>
           {/* Login Form */}
           <div className='flex flex-col max-w-md w-full z-50'>
             <h1 className='text-6xl text-center font-semibold mb-7'>Log in</h1>
@@ -71,16 +77,19 @@ export default function SignIn() {
                 className='bg-slate-100 p-3 rounded-lg'
                 onChange={handleChange}
               />
-              <button disabled={loading} className='bg-[#f87171]  text-white p-3 rounded-lg uppercase hover:opacity-80 disabled:opacity-90'>
+              <button disabled={loading} className='bg-[#f84040]  text-white p-3 rounded-lg uppercase hover:opacity-80 disabled:opacity-90'>
                 {loading ? 'Loading...' : 'Log In'}
 
               </button>
-              <OAuth />
-            </form>
+              </form>
+              <div className='mt-4'>
+            {/* OAuth Component for Google Sign-In */}
+            <OAuth />
+          </div>
             <div className='flex gap-2 mt-5 justify-center'>
-              <p>Don't have an account?</p>
+              <p>Don&apos;t have an account?</p>
               <Link to='/sign-up'>
-                <span className='text-blue-500'>Sign Up</span>
+                <span className='text-red-700'>Sign Up</span>
               </Link>
             </div>
 
@@ -89,13 +98,10 @@ export default function SignIn() {
             <p className='text-red-700 mt-5 bg-slate-500'>{error.message}</p>
           )}
         </div>
-
-
         {/* Right side: Login Image */}
         <div className='hidden lg:flex flex-1'>
           <img src="/login.jpeg" alt="Login" className='w-full  object-cover' />
         </div>
       </div>
-    </div>
   );
 }
